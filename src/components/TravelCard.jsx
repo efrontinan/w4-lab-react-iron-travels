@@ -2,19 +2,20 @@ import "./TravelCard.css"
 import { useState, useEffect } from 'react'
 
 
-const TravelCard = ({id, destination, image, days, totalCost, description, deleteTravelPlans }) => {
+const TravelCard = ({ id, destination, image, days, totalCost, description, deleteTravelPlans }) => {
 
-    const [labelClass, setLabelClass] = useState('Regular')
+    let labelStatus = 'regular'
+    let labelContent = 'Regular'
 
-    useEffect(() => {
-        if (totalCost <= 350) {
-            setLabelClass('greatDeal');
-        } else if (totalCost >= 1500) {
-            setLabelClass('premium');
-        }
-    }, [totalCost]);
+    if (totalCost <= 350) {
+        labelStatus = 'greatDeal'
+        labelContent = '¡Great Deal!'
+        
+    } else if (totalCost >= 1500) {
+        labelStatus= 'premium'
+        labelContent = 'Premium'
 
-
+    }
 
     return (
         <div className='TravelCard'>
@@ -30,7 +31,7 @@ const TravelCard = ({id, destination, image, days, totalCost, description, delet
                 </div>
 
                 <div className="labels">
-                    <label className={`${labelClass}`} htmlFor=""> {labelClass}</label>
+                    <label className={labelStatus} htmlFor=""> {labelContent}</label>
                 </div>
 
                 <button onClick={() => deleteTravelPlans(id)}>Delete</button>
